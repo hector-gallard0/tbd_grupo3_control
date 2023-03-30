@@ -71,7 +71,7 @@ CREATE TABLE Pago(
 -- Crear la tabla Horario
 CREATE TABLE Horario (
   id_horario int PRIMARY KEY,
-  horario_inicio time
+  hora_inicio time
 );
 
 -- Crear la tabla Peluquero
