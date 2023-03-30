@@ -180,7 +180,7 @@ VALUES
 (3, 'Efectivo');
 
 
-INSERT INTO Horario(id_horario, horario_inicio)
+INSERT INTO Horario(id_horario, hora_inicio)
 VALUES
 (1, '09:00:00'),
 (2, '09:30:00'),
