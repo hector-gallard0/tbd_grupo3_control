@@ -1,0 +1,103 @@
+WITH table1 AS (SELECT t.id_peluqueria, t.nombre_peluqueria, t.hora_inicio, count(*) AS qty
+FROM (
+	SELECT p.id_peluqueria, p.nombre_peluqueria, c.fecha_cita, h.hora_inicio, co.nombre_comuna
+	FROM cita c, cliente_peluqueria cp, peluqueria p, comuna co, horario h
+	WHERE c.id_cliente_peluqueria = cp.id_cliente_peluqueria
+	AND cp.id_peluqueria = p.id_peluqueria
+	AND p.id_comuna = co.id_comuna
+	AND c.id_horario = h.id_horario
+	ORDER BY p.nombre_peluqueria
+) as t
+GROUP BY (t.id_peluqueria, t.nombre_peluqueria, t.hora_inicio)
+)
+
+SELECT t.id_peluqueria, t.nombre_peluqueria, t.hora_inicio, t.qty
+FROM table1 t
+WHERE qty = (
+	SELECT MIN(qty)
+	FROM table1 t2
+	WHERE t2.id_peluqueria = t.id_peluqueria 
+)
+ORDER BY id_peluqueria
+
+
+2.	lista de clientes que gastan más dinero mensual por peluquería, indicando comuna del cliente y de peluquería, además de cuanto gasto
+select t3.id_peluqueria, t3.mes_detalle, t3.ano_detalle, t3.id_cliente, t3.precio_detalle, co.nombre_comuna
+from
+	(select t1.id_peluqueria, t1.mes_detalle, t1.ano_detalle, max(t1.precio_detalle) as max_precio_detalle
+	from
+		(select 
+			p.id_peluqueria,
+			extract(month from ci.fecha_cita) as mes_detalle, 
+			extract(year from ci.fecha_cita) as ano_detalle, 
+			c.id_cliente, 
+			sum(d.precio_detalle) as precio_detalle
+		from cliente c, cliente_peluqueria cp, cita ci, detalle d, peluqueria p
+		where p.id_peluqueria = cp.id_peluqueria
+		and c.id_cliente = cp.id_cliente
+		and cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		and ci.id_cita = d.id_cita		
+		group by(p.id_peluqueria, c.id_cliente, extract(month from ci.fecha_cita), extract(year from ci.fecha_cita))
+		order by id_peluqueria, mes_detalle, ano_detalle) as t1
+	 group by(t1.id_peluqueria, t1.mes_detalle, t1.ano_detalle)
+	) as t2
+join
+	(select 
+		p.id_peluqueria,
+		extract(month from ci.fecha_cita) as mes_detalle, 
+		extract(year from ci.fecha_cita) as ano_detalle, 
+		c.id_cliente, 
+		sum(d.precio_detalle) as precio_detalle
+	from cliente c, cliente_peluqueria cp, cita ci, detalle d, peluqueria p
+	where p.id_peluqueria = cp.id_peluqueria
+	and c.id_cliente = cp.id_cliente
+	and cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+	and ci.id_cita = d.id_cita		
+	group by(p.id_peluqueria, c.id_cliente, extract(month from ci.fecha_cita), extract(year from ci.fecha_cita))
+	order by id_peluqueria, mes_detalle, ano_detalle
+	) as t3
+on t2.id_peluqueria = t3.id_peluqueria
+and t2.mes_detalle = t3.mes_detalle
+and t2.ano_detalle = t3.ano_detalle
+and t2.max_precio_detalle = t3.precio_detalle
+join cliente cl
+on cl.id_cliente = t3.id_cliente
+join comuna co
+on co.id_comuna = cl.id_comuna
+order by (t3.id_peluqueria, t3.mes_detalle, t3.ano_detalle)
+
+
+
+
+
+3.	lista de peluqueros que ha ganado más por mes los últimos 3 años, esto por peluquería
+peluqueria	|mes	|ano	|peluquero
+
+
+
+4.	lista de clientes hombres que se cortan el pelo y la barba
+
+
+SELECT DISTINCT cl.id_cliente, cl.nombre
+FROM  cliente cl
+JOIN cliente_peluqueria cp
+ON cl.id_cliente = cp.id_cliente
+JOIN cita ci
+ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+JOIN detalle d
+ON d.id_cita = ci.id_cita
+JOIN servicio s
+ON s.id_servicio = 2 OR s.id_servicio = 3
+JOIN detalle_servicio ds
+ON ds.id_detalle = d.id_detalle
+AND ds.id_servicio = s.id_servicio 
+JOIN detalle_servicio ds1
+ON ds1.id_servicio = 
+	(CASE
+		WHEN ds.id_servicio = 2 THEN 3
+		WHEN ds.id_servicio = 3 THEN 2
+	 END
+ 	)
+AND ds.id_detalle = ds1.id_detalle
+WHERE cl.sexo = 'M'
+order by cl.id_cliente

@@ -221,73 +221,41 @@ VALUES
 -- Crear la secuencia para id_cita
 CREATE SEQUENCE cita_id_seq START WITH 1;
 
--- Insertar citas en la tabla Cita
 INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
 SELECT
   nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
-  id_cliente_peluqueria,
-  id_horario,
-  id_peluquero,
-  duracion_cita,
-  fecha_cita
-FROM(
-  SELECT
-    id_cliente_peluqueria,
-    id_horario,
-    id_peluquero,
-    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
-    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
-  FROM
-    generate_series(1, 15) AS id_cliente_peluqueria,
-    generate_series(1, 10) AS id_horario,
-    generate_series(1, 10) AS id_peluquero     
-  ) as citas
+  FLOOR(RANDOM() * 15 + 1),
+  FLOOR(RANDOM() * 10 + 1),
+  FLOOR(RANDOM() * 10 + 1),
+  FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+  TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-02-28' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+FROM
+  generate_series(1, 200000) as citas
 ON CONFLICT DO NOTHING;
 
--- Insertar citas en la tabla Cita
+
 INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
 SELECT
   nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
-  id_cliente_peluqueria,
-  id_horario,
-  id_peluquero,
-  duracion_cita,
-  fecha_cita
-FROM(
-  SELECT
-    id_cliente_peluqueria,
-    id_horario,
-    id_peluquero,
-    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
-    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
-  FROM
-      generate_series(16, 30) AS id_cliente_peluqueria,
-      generate_series(1, 10) AS id_horario,
-      generate_series(11, 20) AS id_peluquero     
-  ) as citas
+  FLOOR(RANDOM() * 15 + 16),
+  FLOOR(RANDOM() * 10 + 1),
+  FLOOR(RANDOM() * 10 + 11),
+  FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+  TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+FROM
+  generate_series(1, 200000) as citas
 ON CONFLICT DO NOTHING;
 
--- Insertar citas en la tabla Cita
 INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
 SELECT
   nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
-  id_cliente_peluqueria,
-  id_horario,
-  id_peluquero,
-  duracion_cita,
-  fecha_cita
-FROM(
-  SELECT
-    id_cliente_peluqueria,
-    id_horario,
-    id_peluquero,
-    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
-    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
-  FROM
-    generate_series(31, 45) AS id_cliente_peluqueria,
-    generate_series(1, 10) AS id_horario,
-    generate_series(21, 30) AS id_peluquero     
-  ) as citas
+  FLOOR(RANDOM() * 15 + 31),
+  FLOOR(RANDOM() * 10 + 1),
+  FLOOR(RANDOM() * 10 + 21),
+  FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+  TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+FROM
+  generate_series(1, 200000) as citas
 ON CONFLICT DO NOTHING;
 
 -- Crear la secuencia para id_detalle

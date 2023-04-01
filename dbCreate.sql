@@ -78,7 +78,6 @@ CREATE TABLE Horario (
 CREATE TABLE Peluquero (
   id_peluquero int PRIMARY KEY,
   id_empleado int,
-  nombre_peluquero varchar(255),
   FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado)
 );
   
