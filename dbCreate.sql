@@ -93,7 +93,9 @@ CREATE TABLE Cita (
   fecha_cita date,
   FOREIGN KEY (id_cliente_peluqueria) REFERENCES Cliente_peluqueria(id_cliente_peluqueria),
   FOREIGN KEY (id_horario) REFERENCES Horario(id_horario),
-  FOREIGN KEY (id_peluquero) REFERENCES Peluquero(id_peluquero)
+  FOREIGN KEY (id_peluquero) REFERENCES Peluquero(id_peluquero),
+  CONSTRAINT unique_cliente_fecha UNIQUE (id_cliente_peluqueria, fecha_cita),
+  CONSTRAINT unique_peluquero UNIQUE (id_peluquero, fecha_cita, id_horario)
 );
 
 
@@ -142,3 +144,4 @@ CREATE TABLE Detalle_servicio (
   FOREIGN KEY (id_detalle) REFERENCES Detalle(id_detalle),
   FOREIGN KEY (id_servicio) REFERENCES Servicio(id_servicio)
 );
+

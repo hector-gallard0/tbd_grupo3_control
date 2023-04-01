@@ -66,71 +66,61 @@ VALUES
 (29, 15, 'José Gonzalez', 'M'),
 (30, 15, 'Camila Herrera', 'F');
 
+
 INSERT INTO Peluqueria(id_peluqueria, id_comuna, nombre_peluqueria) 
 VALUES 
 (1, 1, 'Peluqueria 1'),
 (2, 2, 'Peluqueria 2'),
-(3, 3, 'Peluqueria 3'),
-(4, 4, 'Peluqueria 4'),
-(5, 5, 'Peluqueria 5'),
-(6, 6, 'Peluqueria 6'),
-(7, 7, 'Peluqueria 7'),
-(8, 8, 'Peluqueria 8'),
-(9, 9, 'Peluqueria 9'),
-(10, 10, 'Peluqueria 10'),
-(11, 11, 'Peluqueria 11'),
-(12, 12, 'Peluqueria 12'),
-(13, 13, 'Peluqueria 13'),
-(14, 14, 'Peluqueria 14'),
-(15, 15, 'Peluqueria 15');
+(3, 3, 'Peluqueria 3');
+
 
 INSERT INTO Cliente_peluqueria(id_cliente_peluqueria, id_cliente, id_peluqueria) 
 VALUES
 (1, 1, 1),
-(2, 2, 2),
-(3, 3, 3),
-(4, 4, 4),
-(5, 5, 5),
-(6, 6, 6),
-(7, 7, 7),
-(8, 8, 8),
-(9, 9, 9),
-(10, 10, 10),
-(11, 11, 11),
-(12, 12, 12),
-(13, 13, 13),
-(14, 14, 14),
-(15, 15, 15),
-(16, 16, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1),
+(6, 6, 1),
+(7, 7, 1),
+(8, 8, 1),
+(9, 9, 1),
+(10, 10, 1),
+(11, 11, 1),
+(12, 12, 1),
+(13, 13, 1),
+(14, 14, 1),
+(15, 15, 1),
+(16, 16, 2),
 (17, 17, 2),
-(18, 18, 3),
-(19, 19, 4),
-(20, 20, 5),
-(21, 21, 6),
-(22, 22, 7),
-(23, 23, 8),
-(24, 24, 9),
-(25, 25, 10),
-(26, 26, 11),
-(27, 27, 12),
-(28, 28, 13),
-(29, 29, 14),
-(30, 30, 15),
-(31, 15, 1),
-(32, 16, 2),
+(18, 18, 2),
+(19, 19, 2),
+(20, 20, 2),
+(21, 21, 2),
+(22, 22, 2),
+(23, 23, 2),
+(24, 24, 2),
+(25, 25, 2),
+(26, 26, 2),
+(27, 27, 2),
+(28, 28, 2),
+(29, 29, 2),
+(30, 30, 2),
+(31, 15, 3),
+(32, 16, 3),
 (33, 17, 3),
-(34, 18, 4),
-(35, 19, 5),
-(36, 20, 6),
-(37, 21, 7),
-(38, 22, 8),
-(39, 23, 9),
-(40, 24, 10),
-(41, 25, 11),
-(42, 26, 12),
-(43, 27, 13),
-(44, 28, 14),
-(45, 29, 15);
+(34, 18, 3),
+(35, 19, 3),
+(36, 20, 3),
+(37, 21, 3),
+(38, 22, 3),
+(39, 23, 3),
+(40, 24, 3),
+(41, 25, 3),
+(42, 26, 3),
+(43, 27, 3),
+(44, 28, 3),
+(45, 29, 3);
 
 
 INSERT INTO Sueldo(id_sueldo, sueldo) 
@@ -142,69 +132,36 @@ VALUES
 INSERT INTO Empleado(id_empleado, id_comuna, id_peluqueria, id_sueldo, nombre_empleado)
 VALUES
   (1, 7, 1, 1, 'Juan Perez'),
-  (2, 18, 2, 2, 'Ana García'),
-  (3, 26, 3, 3, 'Pedro Ramirez'),
-  (4, 8, 4, 3, 'María Fernández'),
-  (5, 15, 5, 2, 'Luisa Rodríguez'),
-  (6, 32, 6, 1, 'Carlos Gomez'),
-  (7, 24, 7, 1, 'Laura Diaz'),
-  (8, 11, 8, 2, 'Pablo Martinez'),
-  (9, 30, 9, 3, 'Marta Gonzalez'),
-  (10, 13, 10, 3, 'Mario Herrera'),
-  (11, 5, 11, 2, 'Fabiola Aguilar'),
-  (12, 22, 12, 1, 'Javier Vega'),
-  (13, 4, 13, 1, 'Sofía González'),
-  (14, 23, 14, 2, 'Ricardo Sánchez'),
-  (15, 28, 15, 3, 'Isabel Ramirez'),
-  (16, 9, 1, 3, 'Alejandro Torres'),
+  (2, 18, 1, 2, 'Ana García'),
+  (3, 26, 1, 3, 'Pedro Ramirez'),
+  (4, 8, 1, 3, 'María Fernández'),
+  (5, 15, 1, 2, 'Luisa Rodríguez'),
+  (6, 32, 1, 1, 'Carlos Gomez'),
+  (7, 24, 1, 1, 'Laura Diaz'),
+  (8, 11, 1, 2, 'Pablo Martinez'),
+  (9, 30, 1, 3, 'Marta Gonzalez'),
+  (10, 13, 1, 3, 'Mario Herrera'),
+  (11, 5, 2, 2, 'Fabiola Aguilar'),
+  (12, 22, 2, 1, 'Javier Vega'),
+  (13, 4, 2, 1, 'Sofía González'),
+  (14, 23, 2, 2, 'Ricardo Sánchez'),
+  (15, 28, 2, 3, 'Isabel Ramirez'),
+  (16, 9, 2, 3, 'Alejandro Torres'),
   (17, 1, 2, 2, 'Carmen Fernandez'),
-  (18, 14, 3, 1, 'Diego Rojas'),
-  (19, 31, 4, 1, 'Adriana Rodriguez'),
-  (20, 25, 5, 2, 'Andres Gómez'),
-  (21, 2, 6, 3, 'Estefania Castro'),
-  (22, 21, 7, 3, 'Francisco Ortega'),
-  (23, 27, 8, 2, 'Silvia Vargas'),
-  (24, 16, 9, 1, 'Roberto Molina'),
-  (25, 19, 10, 1, 'Paula Medina'),
-  (26, 12, 11, 2, 'Cristóbal Castro'),
-  (27, 29, 12, 3, 'Valentina Herrera'),
-  (28, 6, 13, 3, 'Julio Aguilar'),
-  (29, 17, 14, 2, 'Camila Rojas'),
-  (30, 10, 15, 1, 'Emilio González');
+  (18, 14, 2, 1, 'Diego Rojas'),
+  (19, 31, 2, 1, 'Adriana Rodriguez'),
+  (20, 25, 2, 2, 'Andres Gómez'),
+  (21, 2, 3, 3, 'Estefania Castro'),
+  (22, 21, 3, 3, 'Francisco Ortega'),
+  (23, 27, 3, 2, 'Silvia Vargas'),
+  (24, 16, 3, 1, 'Roberto Molina'),
+  (25, 19, 3, 1, 'Paula Medina'),
+  (26, 12, 3, 2, 'Cristóbal Castro'),
+  (27, 29, 3, 3, 'Valentina Herrera'),
+  (28, 6, 3, 3, 'Julio Aguilar'),
+  (29, 17, 3, 2, 'Camila Rojas'),
+  (30, 10, 3, 1, 'Emilio González');
 
-
-INSERT INTO Pago(id_pago, medio_de_pago)
-VALUES
-(1, 'Debito'),
-(2, 'Credito'),
-(3, 'Efectivo');
-
-
-INSERT INTO Horario(id_horario, hora_inicio)
-VALUES
-(1, '09:00:00'),
-(2, '09:30:00'),
-(3, '10:00:00'),
-(4, '10:30:00'),
-(5, '11:00:00'),
-(6, '11:30:00'),
-(7, '12:00:00'),
-(8, '12:30:00'),
-(9, '13:00:00'),
-(10, '13:30:00'),
-(11, '14:00:00'),
-(12, '14:30:00'),
-(13, '15:00:00'),
-(14, '15:30:00'),
-(15, '16:00:00'),
-(16, '16:30:00'),
-(17, '17:00:00'),
-(18, '17:30:00'),
-(19, '18:00:00'),
-(20, '18:30:00'),
-(21, '19:00:00'),
-(22, '19:30:00'),
-(23, '20:00:00');
 
 INSERT INTO Peluquero(id_peluquero, id_empleado)
 VALUES
@@ -222,105 +179,129 @@ VALUES
  (12, 12),
  (13, 13),
  (14, 14),
- (15, 15);
+ (15, 15),
+ (16, 16),
+ (17, 17),
+ (18, 18),
+ (19, 19),
+ (20, 20),
+ (21, 21),
+ (22, 22),
+ (23, 23),
+ (24, 24),
+ (25, 25),
+ (26, 26),
+ (27, 27),
+ (28, 28),
+ (29, 29),
+ (30, 30);
 
 
-INSERT INTO Cita(id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
+INSERT INTO Pago(id_pago, medio_de_pago)
 VALUES
-(1, 1, 1, 1, '60 minutes', '2023-01-01'),
-(2, 2, 2, 2, '70 minutes', '2023-01-02'),
-(3, 3, 3, 3, '80 minutes', '2023-01-03'),
-(4, 4, 4, 4, '30 minutes', '2023-01-04'),
-(5, 5, 5, 5, '30 minutes', '2023-01-05'),
-(6, 6, 6, 6, '45 minutes', '2023-01-06'),
-(7, 7, 7, 7, '60 minutes', '2023-01-07'),
-(8, 8, 8, 8, '70 minutes', '2023-01-08'),
-(9, 9, 9, 9, '60 minutes', '2023-01-09'),
-(10, 10, 10, 10, '70 minutes', '2023-01-10'),
-(11, 11, 11, 11, '45 minutes', '2023-01-01'),
-(12, 12, 12, 12, '30 minutes', '2023-01-02'),
-(13, 13, 13, 13, '30 minutes', '2023-01-03'),
-(14, 14, 14, 14, '60 minutes', '2023-01-04'),
-(15, 15, 15, 15, '45 minutes', '2023-01-05'),
-(16, 16, 16, 1, '90 minutes', '2023-01-06'),
-(17, 17, 17, 2, '75 minutes', '2023-01-07'),
-(18, 18, 18, 3, '45 minutes', '2023-01-08'),
-(19, 19, 19, 4, '20 minutes', '2023-01-09'),
-(20, 20, 20, 5, '45 minutes', '2023-01-10'),
-(21, 21, 21, 6, '60 minutes', '2023-01-10'),
-(22, 22, 22, 7, '60 minutes', '2023-01-09'),
-(23, 23, 23, 8, '60 minutes', '2023-01-08'),
-(24, 24, 23, 9, '30 minutes', '2023-01-07'),
-(25, 25, 22, 10, '45 minutes', '2023-01-06'),
-(26, 26, 21, 11, '75 minutes', '2023-01-05'),
-(27, 27, 20, 12, '60 minutes', '2023-01-04'),
-(28, 28, 19, 13, '20 minutes', '2023-01-03'),
-(29, 29, 18, 14, '45 minutes', '2023-01-02'),
-(30, 30, 17, 15, '50 minutes', '2023-01-01'),
-(31, 31, 16, 1, '80 minutes', '2023-01-01'),
-(32, 32, 15, 2, '120 minutes', '2023-01-02'),
-(33, 33, 14, 3, '100 minutes', '2023-01-03'),
-(34, 34, 13, 4, '80 minutes', '2023-01-04'),
-(35, 35, 12, 5, '40 minutes', '2023-01-05'),
-(36, 36, 11, 6, '45 minutes', '2023-01-06'),
-(37, 37, 10, 7, '30 minutes', '2023-01-07'),
-(38, 38, 9, 8, '35 minutes', '2023-01-08'),
-(39, 39, 8, 9, '35 minutes', '2023-01-09'),
-(40, 40, 7, 10, '40 minutes', '2023-01-10'),
-(41, 41, 6, 11, '45 minutes', '2023-01-01'),
-(42, 42, 5, 12, '50 minutes', '2023-01-02'),
-(43, 43, 4, 13, '80 minutes', '2023-01-03'),
-(44, 44, 3, 14, '90 minutes', '2023-01-04'),
-(45, 45, 2, 15, '60 minutes', '2023-01-05');
+(1, 'Debito'),
+(2, 'Credito'),
+(3, 'Efectivo');
 
+
+INSERT INTO Horario(id_horario, hora_inicio)
+VALUES
+(1, '10:00:00'),
+(2, '11:00:00'),
+(3, '12:00:00'),
+(4, '13:30:00'),
+(5, '14:00:00'),
+(6, '15:30:00'),
+(7, '16:00:00'),
+(8, '17:30:00'),
+(9, '18:00:00'),
+(10, '19:00:00');
+
+
+-- Crear la secuencia para id_cita
+CREATE SEQUENCE cita_id_seq START WITH 1;
+
+-- Insertar citas en la tabla Cita
+INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
+SELECT
+  nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
+  id_cliente_peluqueria,
+  id_horario,
+  id_peluquero,
+  duracion_cita,
+  fecha_cita
+FROM(
+  SELECT
+    id_cliente_peluqueria,
+    id_horario,
+    id_peluquero,
+    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+  FROM
+    generate_series(1, 15) AS id_cliente_peluqueria,
+    generate_series(1, 10) AS id_horario,
+    generate_series(1, 10) AS id_peluquero     
+  ) as citas
+ON CONFLICT DO NOTHING;
+
+-- Insertar citas en la tabla Cita
+INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
+SELECT
+  nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
+  id_cliente_peluqueria,
+  id_horario,
+  id_peluquero,
+  duracion_cita,
+  fecha_cita
+FROM(
+  SELECT
+    id_cliente_peluqueria,
+    id_horario,
+    id_peluquero,
+    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+  FROM
+      generate_series(16, 30) AS id_cliente_peluqueria,
+      generate_series(1, 10) AS id_horario,
+      generate_series(11, 20) AS id_peluquero     
+  ) as citas
+ON CONFLICT DO NOTHING;
+
+-- Insertar citas en la tabla Cita
+INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
+SELECT
+  nextval('cita_id_seq'), -- Generar el próximo valor de la secuencia para id_cita
+  id_cliente_peluqueria,
+  id_horario,
+  id_peluquero,
+  duracion_cita,
+  fecha_cita
+FROM(
+  SELECT
+    id_cliente_peluqueria,
+    id_horario,
+    id_peluquero,
+    FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
+    TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
+  FROM
+    generate_series(31, 45) AS id_cliente_peluqueria,
+    generate_series(1, 10) AS id_horario,
+    generate_series(21, 30) AS id_peluquero     
+  ) as citas
+ON CONFLICT DO NOTHING;
+
+-- Crear la secuencia para id_detalle
+CREATE SEQUENCE detalle_id_seq START WITH 1;
 
 INSERT INTO Detalle(id_detalle, id_cita, id_pago, precio_detalle)
-VALUES
-(1, 1, 1, 10000),
-(2, 2, 2, 15000),
-(3, 3, 3, 20000),
-(4, 4, 3, 10000),
-(5, 5, 2, 15000),
-(6, 6, 1, 20000),
-(7, 7, 1, 10000),
-(8, 8, 2, 15000),
-(9, 9, 3, 20000),
-(10, 10, 3, 10000),
-(11, 11, 2, 15000),
-(12, 12, 1, 20000),
-(13, 13, 1, 10000),
-(14, 14, 2, 15000),
-(15, 15, 3, 20000),
-(16, 16, 3, 10000),
-(17, 17, 2, 15000),
-(18, 18, 1, 20000),
-(19, 19, 1, 10000),
-(20, 20, 2, 15000),
-(21, 21, 3, 20000),
-(22, 22, 3, 10000),
-(23, 23, 2, 15000),
-(24, 24, 1, 20000),
-(25, 25, 1, 10000),
-(26, 26, 2, 15000),
-(27, 27, 3, 20000),
-(28, 28, 3, 10000),
-(29, 29, 2, 15000),
-(30, 30, 1, 20000),
-(31, 31, 1, 10000),
-(32, 32, 2, 15000),
-(33, 33, 3, 20000),
-(34, 34, 3, 10000),
-(35, 35, 2, 15000),
-(36, 36, 1, 20000),
-(37, 37, 1, 10000),
-(38, 38, 2, 15000),
-(39, 39, 3, 20000),
-(40, 40, 2, 10000),
-(41, 41, 2, 15000),
-(42, 42, 3, 20000),
-(43, 43, 1, 10000),
-(44, 44, 1, 15000),
-(45, 45, 3, 20000);
+SELECT
+  nextval('detalle_id_seq')-- Generar el próximo valor de la secuencia para id_cita
+  id_detalle,
+  c.id_cita,
+  (FLOOR(RANDOM() * 3) + 1) AS id_pago,
+  0
+FROM cita c;
+
 
 
 INSERT INTO Producto(id_producto, nombre_producto, precio_producto)
@@ -333,98 +314,41 @@ VALUES
 
 INSERT INTO Servicio(id_servicio, nombre_servicio, precio_servicio)
 VALUES
-(1, 'Corte de cabello', 10000),
+(1, 'Lavado de cabello', 5000),
 (2, 'Corte de barba', 5000),
-(3, 'Lavado de cabello', 5000);
+(3, 'Corte de cabello', 10000),
+(4, 'Tinte de cabello', 10000);
 
+-- Crear la secuencia para detalle_producto
+CREATE SEQUENCE detalle_producto_id_seq START WITH 1;
 
 INSERT INTO Detalle_producto(id_detalle_producto, id_detalle, id_producto)
-VALUES
-(1, 2, 1),
-(2, 3, 3),
-(3, 4, 4),
-(4, 6, 3),
-(5, 9, 3),
-(6, 9, 4),
-(7, 11, 2),
-(8, 12, 1),
-(9, 12, 2),
-(10, 14, 1),
-(11, 15, 3),
-(12, 16, 4),
-(13, 18, 3),
-(14, 21, 3),
-(15, 21, 4),
-(16, 23, 2),
-(17, 23, 1),
-(18, 24, 2),
-(19, 26, 1),
-(20, 27, 3),
-(21, 28, 4),
-(22, 30, 3),
-(23, 33, 3),
-(24, 33, 4),
-(25, 35, 2),
-(26, 35, 1),
-(27, 36, 2),
-(28, 38, 1),
-(29, 39, 3),
-(30, 40, 4),
-(31, 42, 3),
-(32, 45, 3),
-(33, 45, 4);
+SELECT 
+  nextval('detalle_producto_id_seq')-- Generar el próximo valor de la secuencia para id_cita
+  id_detalle_producto,
+  id_detalle,
+  (FLOOR(RANDOM() * 4) + 1) AS id_producto
+FROM detalle;
 
+-- Crear la secuencia para detalle_servicio
+CREATE SEQUENCE detalle_servicio_id_seq START WITH 1;
 INSERT INTO Detalle_servicio(id_detalle_servicio, id_detalle, id_servicio)
-VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 5, 1),
-(5, 5, 2),
-(6, 6, 1),
-(7, 7, 1),
-(8, 8, 1),
-(9, 8, 2),
-(10, 10, 2),
-(11, 10, 3),
-(12, 11, 2),
-(13, 11, 3),
-(14, 12, 1),
-(15, 13, 1),
-(16, 14, 1),
-(17, 15, 1),
-(18, 17, 1),
-(19, 17, 2),
-(20, 18, 1),
-(21, 19, 1),
-(22, 20, 1),
-(23, 20, 2),
-(24, 22, 2),
-(25, 22, 3),
-(26, 23, 2),
-(27, 23, 3),
-(28, 24, 1),
-(29, 25, 1),
-(30, 26, 1),
-(31, 27, 1),
-(32, 29, 1),
-(33, 29, 2),
-(34, 30, 1),
-(35, 31, 1),
-(36, 32, 1),
-(37, 32, 2),
-(38, 34, 2),
-(39, 34, 3),
-(40, 35, 2),
-(41, 35, 3),
-(42, 36, 1),
-(43, 37, 1),
-(44, 38, 1),
-(45, 39, 1),
-(46, 41, 1),
-(47, 41, 2),
-(48, 42, 1),
-(49, 43, 1),
-(50, 44, 1),
-(51, 44, 2);
+SELECT 
+  nextval('detalle_servicio_id_seq')-- Generar el próximo valor de la secuencia para id_cita
+  id_detalle_servicio,
+  id_detalle,
+  (FLOOR(RANDOM() * 4) + 1) AS id_servicio
+FROM detalle;
+
+UPDATE detalle d
+SET precio_detalle = d.precio_detalle + p.precio_producto
+FROM detalle_producto dp
+INNER JOIN producto p ON dp.id_producto = p.id_producto
+WHERE dp.id_detalle = d.id_detalle;
+
+UPDATE detalle d
+SET precio_detalle = d.precio_detalle + s.precio_servicio
+FROM detalle_servicio ds
+INNER JOIN servicio s ON ds.id_servicio = s.id_servicio
+WHERE ds.id_detalle = d.id_detalle;
 
