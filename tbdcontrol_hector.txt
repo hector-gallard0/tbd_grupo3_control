@@ -101,3 +101,240 @@ ON ds1.id_servicio =
 AND ds.id_detalle = ds1.id_detalle
 WHERE cl.sexo = 'M'
 order by cl.id_cliente
+
+
+5.	lista de clientes que se tiñen el pelo, indicando la comuna del cliente, la peluquería donde se atendió y el valor que pagó
+
+
+SELECT cl.id_cliente, cl.nombre, co.nombre_comuna, pe.nombre_peluqueria, s.precio_servicio
+FROM cliente cl
+JOIN cliente_peluqueria cp
+ON cl.id_cliente = cp.id_cliente
+JOIN cita ci
+ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+JOIN peluqueria pe
+ON pe.id_peluqueria = cp.id_peluqueria
+JOIN detalle d
+ON d.id_cita = ci.id_cita
+JOIN detalle_servicio ds
+ON d.id_detalle = ds.id_detalle
+JOIN comuna co
+ON cl.id_comuna = co.id_comuna
+JOIN servicio s
+ON s.id_servicio = ds.id_servicio
+WHERE ds.id_servicio = 4
+GROUP BY cl.id_cliente, cl.nombre, co.nombre_comuna, pe.nombre_peluqueria, s.precio_servicio
+ORDER BY cl.id_cliente
+
+*Considerando que todos los clientes han recibido este servicio, con el siguiente script se pueden borrar los tintes de cabello realizados
+por el cliente de id 1 para poder comprobar la query que responde a la pregunta 5 con mayor facilidad, pues dejará de mostrar en sus 
+resultados a este cliente.
+
+DELETE FROM Detalle_servicio
+WHERE id_detalle IN (
+    SELECT id_detalle
+    FROM Detalle
+    WHERE id_cita IN (
+        SELECT id_cita
+        FROM Cita
+        WHERE id_cliente_peluqueria = 1
+    )
+) AND id_servicio = 4;
+
+
+6.	identificar el horario más concurrido por peluquería durante el 2018 y 2029, desagregados por mes
+-- año mes 
+WITH t1 AS(
+	SELECT t1.nombre_peluqueria, t1.ano, t1.mes, MAX(t1.num_citas) as max_num_citas
+	FROM (
+		SELECT 
+			pe.nombre_peluqueria,
+			EXTRACT(YEAR FROM ci.fecha_cita) as ano, 
+			EXTRACT(MONTH FROM ci.fecha_cita) as mes,
+			h.hora_inicio,
+			count(*) as num_citas
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		JOIN horario h
+		ON ci.id_horario = h.id_horario
+		GROUP BY 
+			(pe.nombre_peluqueria,
+			EXTRACT(YEAR FROM ci.fecha_cita), 
+			EXTRACT(MONTH FROM ci.fecha_cita),
+			h.hora_inicio)
+		ORDER BY pe.nombre_peluqueria) AS t1
+	GROUP BY t1.nombre_peluqueria, t1.ano, t1.mes
+)
+
+SELECT DISTINCT ON (t1.nombre_peluqueria, t1.ano, t1.mes)
+	t1.nombre_peluqueria, t1.ano, t1.mes, t2.hora_inicio, t1.max_num_citas
+FROM t1
+JOIN (
+	SELECT 
+			pe.nombre_peluqueria,
+			EXTRACT(YEAR FROM ci.fecha_cita) as ano, 
+			EXTRACT(MONTH FROM ci.fecha_cita) as mes,
+			h.hora_inicio,
+			count(*) as num_citas
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		JOIN horario h
+		ON ci.id_horario = h.id_horario
+		GROUP BY 
+			(pe.nombre_peluqueria,
+			EXTRACT(YEAR FROM ci.fecha_cita), 
+			EXTRACT(MONTH FROM ci.fecha_cita),
+			h.hora_inicio)
+		ORDER BY pe.nombre_peluqueria) as t2
+ON t1.nombre_peluqueria = t2.nombre_peluqueria
+AND t1.ano = t2.ano
+AND t1.mes = t2.mes
+AND t1.max_num_citas = t2.num_citas
+
+7.	identificar al cliente que ha tenido las citas más largas por peluquería, por mes
+WITH t2 AS (
+	SELECT t1.nombre_peluqueria, t1.ano, t1.mes, MAX(duracion_cita) as max_duracion_cita
+	FROM (
+		SELECT 
+			pe.nombre_peluqueria, 
+			EXTRACT(YEAR FROM ci.fecha_cita) AS ano, 
+			EXTRACT(MONTH FROM ci.fecha_cita) AS mes,
+			cl.nombre,
+			ci.duracion_cita
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cliente cl
+		ON cl.id_cliente = cp.id_cliente
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		ORDER BY 
+			pe.nombre_peluqueria, 
+			EXTRACT(YEAR FROM ci.fecha_cita), 
+			EXTRACT(MONTH FROM ci.fecha_cita)) as t1
+GROUP BY t1.nombre_peluqueria, t1.ano, t1.mes)
+
+SELECT t2.nombre_peluqueria, t2.ano, t2.mes, t3.id_cliente, t3.nombre, t2.max_duracion_cita
+FROM t2
+JOIN (
+	SELECT 
+		pe.nombre_peluqueria, 
+		EXTRACT(YEAR FROM ci.fecha_cita) AS ano, 
+		EXTRACT(MONTH FROM ci.fecha_cita) AS mes,
+		cl.nombre,
+		cl.id_cliente,
+		ci.duracion_cita
+	FROM peluqueria pe
+	JOIN cliente_peluqueria cp
+	ON pe.id_peluqueria = cp.id_peluqueria
+	JOIN cliente cl
+	ON cl.id_cliente = cp.id_cliente
+	JOIN cita ci
+	ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+	ORDER BY 
+		pe.nombre_peluqueria, 
+		EXTRACT(YEAR FROM ci.fecha_cita), 
+		EXTRACT(MONTH FROM ci.fecha_cita)
+) as t3
+ON t2.nombre_peluqueria = t3.nombre_peluqueria
+AND t2.ano = t3.ano
+AND t2.mes = t3.mes
+AND t2.max_duracion_cita = t3.duracion_cita
+
+8.	identificar servicio más caro por peluquería
+WITH t2 AS
+	(SELECT t1.nombre_peluqueria, MAX(precio_servicio) as max_precio_servicio
+	FROM
+		(SELECT DISTINCT ON(pe.nombre_peluqueria, s.nombre_servicio)
+			pe.nombre_peluqueria, s.nombre_servicio, s.precio_servicio
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		JOIN detalle d
+		ON ci.id_cita = d.id_cita
+		JOIN detalle_servicio ds
+		ON ds.id_detalle = d.id_detalle
+		JOIN servicio s
+		ON s.id_servicio = ds.id_servicio) AS t1
+	GROUP BY (t1.nombre_peluqueria))
+	
+SELECT DISTINCT ON(t2.nombre_peluqueria) 
+	t2.nombre_peluqueria, t3.nombre_servicio, t2.max_precio_servicio
+FROM t2
+JOIN (
+	SELECT DISTINCT ON(pe.nombre_peluqueria, s.nombre_servicio)
+			pe.nombre_peluqueria, s.nombre_servicio, s.precio_servicio
+	FROM peluqueria pe
+	JOIN cliente_peluqueria cp
+	ON pe.id_peluqueria = cp.id_peluqueria
+	JOIN cita ci
+	ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+	JOIN detalle d
+	ON ci.id_cita = d.id_cita
+	JOIN detalle_servicio ds
+	ON ds.id_detalle = d.id_detalle
+	JOIN servicio s
+	ON s.id_servicio = ds.id_servicio
+) as t3
+ON t2.nombre_peluqueria = t3.nombre_peluqueria
+AND t2.max_precio_servicio = t3.precio_servicio
+
+
+9.	identificar al peluquero que ha trabajado más por mes durante el 2021
+WITH t1 AS (
+	SELECT t2.mes, MAX(t2.duracion_cita_mes) as max_duracion_cita_mes
+	FROM
+		(SELECT 
+			p.id_peluquero, 
+			EXTRACT(YEAR FROM ci.fecha_cita) as ano,
+			EXTRACT(MONTH FROM ci.fecha_cita) as mes, 
+			SUM(ci.duracion_cita) AS duracion_cita_mes
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		JOIN peluquero p
+		ON p.id_peluquero = ci.id_peluquero
+		GROUP BY
+			p.id_peluquero, 
+			EXTRACT(MONTH FROM ci.fecha_cita),
+			EXTRACT(YEAR FROM ci.fecha_cita) 
+		HAVING EXTRACT(YEAR FROM ci.fecha_cita) = '2021'
+		ORDER BY p.id_peluquero) AS t2
+	GROUP BY t2.mes)
+
+SELECT t1.mes, t2.id_peluquero, t1.max_duracion_cita_mes
+FROM t1
+JOIN (
+	(SELECT 
+			p.id_peluquero, 
+			EXTRACT(YEAR FROM ci.fecha_cita) as ano,
+			EXTRACT(MONTH FROM ci.fecha_cita) as mes, 
+			SUM(ci.duracion_cita) AS duracion_cita_mes
+		FROM peluqueria pe
+		JOIN cliente_peluqueria cp
+		ON pe.id_peluqueria = cp.id_peluqueria
+		JOIN cita ci
+		ON cp.id_cliente_peluqueria = ci.id_cliente_peluqueria
+		JOIN peluquero p
+		ON p.id_peluquero = ci.id_peluquero
+		GROUP BY
+			p.id_peluquero, 
+			EXTRACT(MONTH FROM ci.fecha_cita),
+			EXTRACT(YEAR FROM ci.fecha_cita) 
+		HAVING EXTRACT(YEAR FROM ci.fecha_cita) = '2021'
+		ORDER BY p.id_peluquero)
+) as t2
+ON t1.mes = t2.mes
+AND t1.max_duracion_cita_mes = duracion_cita_mes
+
+10.	identificar lista de totales por comuna, cantidad de peluquerías, cantidad de clientes residentes en la comuna

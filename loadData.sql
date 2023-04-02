@@ -230,7 +230,7 @@ SELECT
   FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
   TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-02-28' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
 FROM
-  generate_series(1, 200000) as citas
+  generate_series(1, 1000) as citas
 ON CONFLICT DO NOTHING;
 
 
@@ -243,7 +243,7 @@ SELECT
   FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
   TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
 FROM
-  generate_series(1, 200000) as citas
+  generate_series(1, 1000) as citas
 ON CONFLICT DO NOTHING;
 
 INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
@@ -255,7 +255,7 @@ SELECT
   FLOOR(RANDOM() * (120 - 30 + 1) + 30) * INTERVAL '1 MINUTE' AS duracion_cita,
   TIMESTAMP '2018-01-01' + (RANDOM() * (DATE '2023-12-31' - DATE '2018-01-01' + 1)) * INTERVAL '1 DAY' AS fecha_cita
 FROM
-  generate_series(1, 200000) as citas
+  generate_series(1, 1000) as citas
 ON CONFLICT DO NOTHING;
 
 -- Crear la secuencia para id_detalle
@@ -269,7 +269,6 @@ SELECT
   (FLOOR(RANDOM() * 3) + 1) AS id_pago,
   0
 FROM cita c;
-
 
 
 INSERT INTO Producto(id_producto, nombre_producto, precio_producto)
