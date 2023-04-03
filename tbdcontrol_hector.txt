@@ -77,6 +77,9 @@ peluqueria	|mes	|ano	|peluquero
 
 4.	lista de clientes hombres que se cortan el pelo y la barba
 
+para comprobar esta pregunta se hizo una unica cita con 2 servicios asociados a su detalle que es la del cliente con id 1 y la cita de id 3001
+
+
 
 SELECT DISTINCT cl.id_cliente, cl.nombre
 FROM  cliente cl
@@ -338,3 +341,22 @@ ON t1.mes = t2.mes
 AND t1.max_duracion_cita_mes = duracion_cita_mes
 
 10.	identificar lista de totales por comuna, cantidad de peluquerías, cantidad de clientes residentes en la comuna
+
+WITH t1 as (
+SELECT co.nombre_comuna, count(pe.id_peluqueria) AS num_peluquerias
+FROM peluqueria pe
+RIGHT JOIN comuna co
+ON pe.id_comuna = co.id_comuna
+GROUP BY co.nombre_comuna)
+
+SELECT t1.nombre_comuna, t1.num_peluquerias, t2.num_clientes
+FROM t1
+JOIN (
+SELECT co.nombre_comuna, count(cl.id_cliente) AS num_clientes
+FROM cliente cl
+RIGHT JOIN comuna co
+ON cl.id_comuna = co.id_comuna
+GROUP BY co.nombre_comuna
+) as t2
+ON t1.nombre_comuna = t2.nombre_comuna
+

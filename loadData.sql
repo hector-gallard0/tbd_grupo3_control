@@ -67,11 +67,11 @@ VALUES
 (30, 15, 'Camila Herrera', 'F');
 
 
-INSERT INTO Peluqueria(id_peluqueria, id_comuna, nombre_peluqueria) 
+INSERT INTO Peluqueria(id_peluqueria, id_comuna, nombre_peluqueria, bono_cita) 
 VALUES 
-(1, 1, 'Peluqueria 1'),
-(2, 2, 'Peluqueria 2'),
-(3, 3, 'Peluqueria 3');
+(1, 1, 'Peluqueria 1', 10000),
+(2, 2, 'Peluqueria 2', 15000),
+(3, 3, 'Peluqueria 3', 23000);
 
 
 INSERT INTO Cliente_peluqueria(id_cliente_peluqueria, id_cliente, id_peluqueria) 
@@ -258,6 +258,16 @@ FROM
   generate_series(1, 1000) as citas
 ON CONFLICT DO NOTHING;
 
+INSERT INTO Cita (id_cita, id_cliente_peluqueria, id_horario, id_peluquero, duracion_cita, fecha_cita)
+VALUES(
+  3001,
+  1,
+  1,
+  1,
+  '60 minutes',
+  '2023-04-03'
+);
+
 -- Crear la secuencia para id_detalle
 CREATE SEQUENCE detalle_id_seq START WITH 1;
 
@@ -269,6 +279,15 @@ SELECT
   (FLOOR(RANDOM() * 3) + 1) AS id_pago,
   0
 FROM cita c;
+
+INSERT INTO Detalle(id_detalle, id_cita, id_pago, precio_detalle)
+VALUES
+(
+  3001,
+  3001,
+  1,
+  0
+);
 
 
 INSERT INTO Producto(id_producto, nombre_producto, precio_producto)
@@ -284,7 +303,8 @@ VALUES
 (1, 'Lavado de cabello', 5000),
 (2, 'Corte de barba', 5000),
 (3, 'Corte de cabello', 10000),
-(4, 'Tinte de cabello', 10000);
+(4, 'Tinte de cabello', 10000),
+(5, 'Tratamiento facial', 12000);
 
 -- Crear la secuencia para detalle_producto
 CREATE SEQUENCE detalle_producto_id_seq START WITH 1;
@@ -307,6 +327,38 @@ SELECT
   (FLOOR(RANDOM() * 4) + 1) AS id_servicio
 FROM detalle;
 
+INSERT INTO Detalle_servicio(id_detalle_servicio, id_detalle, id_servicio)
+VALUES
+(
+  nextval('detalle_servicio_id_seq'),
+  3001,
+  3
+);
+
+INSERT INTO Detalle_servicio(id_detalle_servicio, id_detalle, id_servicio)
+VALUES
+(
+  nextval('detalle_servicio_id_seq'),
+  3001,
+  2
+);
+
+INSERT INTO Detalle_servicio(id_detalle_servicio, id_detalle, id_servicio)
+VALUES
+(
+  nextval('detalle_servicio_id_seq'),
+  3001,
+  2
+);
+
+INSERT INTO Detalle_servicio(id_detalle_servicio, id_detalle, id_servicio)
+VALUES
+(
+  nextval('detalle_servicio_id_seq'),
+  3001,
+  5
+);
+
 UPDATE detalle d
 SET precio_detalle = d.precio_detalle + p.precio_producto
 FROM detalle_producto dp
@@ -319,3 +371,13 @@ FROM detalle_servicio ds
 INNER JOIN servicio s ON ds.id_servicio = s.id_servicio
 WHERE ds.id_detalle = d.id_detalle;
 
+DELETE FROM Detalle_servicio
+WHERE id_detalle IN (
+    SELECT id_detalle
+    FROM Detalle
+    WHERE id_cita IN (
+        SELECT id_cita
+        FROM Cita
+        WHERE id_cliente_peluqueria = 1
+    )
+) AND id_servicio = 4;

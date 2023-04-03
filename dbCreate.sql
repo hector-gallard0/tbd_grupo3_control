@@ -26,6 +26,7 @@ CREATE TABLE Peluqueria (
   id_peluqueria int PRIMARY KEY,
   id_comuna int,
   nombre_peluqueria varchar(255),
+  bono_cita int,
   FOREIGN KEY (id_comuna) REFERENCES Comuna(id_comuna)
 );
 
