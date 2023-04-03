@@ -2,7 +2,7 @@
 Repositorio que contiene el diagrama ER, el diccionario de datos y los scripts relacionados con la resolución del Control 1 del Laboratorio de Taller de Bases de Datos de la Universidad de Santiago de Chile.
 
 
-Alumnos:
+<h2>Alumnos:</h2>
 
 Fabrizio Montuschi
 Hector Gallardo
@@ -10,8 +10,11 @@ Nicolas Rojas Gonzalez
 Clemente Aguilar
 Felipe Diaz
 
+\br
+\br
 
-<b>Para ejecutar los scripts de creación, poblado y consultas a la base de datos se deben ejecutar los siguientes comandos en orden:</b>
+
+<h2>Para ejecutar los scripts de creación, poblado y consultas a la base de datos se deben ejecutar los siguientes comandos en orden:</h2>
 
 1. Se abre la cmd y se situa en la carpeta del repositorio.
 
