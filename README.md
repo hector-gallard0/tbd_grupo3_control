@@ -10,9 +10,6 @@ Nicolas Rojas Gonzalez
 Clemente Aguilar
 Felipe Diaz
 
-\br
-\br
-
 
 <h2>Para ejecutar los scripts de creación, poblado y consultas a la base de datos se deben ejecutar los siguientes comandos en orden:</h2>
 
