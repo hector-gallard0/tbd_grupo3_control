@@ -36,7 +36,6 @@ psql -U postgres
 
 \i runStatements.sql
 
+7. Por último, si se desea una mejor visualización de los datos, se puede abrir pgAdmin y ejecutar cada query ahí con la herramienta "Query Tool".
 
-
-
-
+8. En algunas consultas hay notas que permiten dar guías para comprobar de mejor manera su eficacia.
