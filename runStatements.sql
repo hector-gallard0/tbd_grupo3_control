@@ -22,7 +22,7 @@ WHERE t2.num_citas = (
 	FROM t2 t3
 	WHERE t3.id_peluqueria = t2.id_peluqueria 
 )
-ORDER BY t2.num_citas
+ORDER BY t2.num_citas;
 
 -- FIN Pregunta 1 --
 
@@ -154,7 +154,7 @@ AND t2.id_peluqueria = t3.id_peluqueria
 AND t2.nombre_peluqueria = t3.nombre_peluqueria
 AND t2.max_total_bono_mes = t3.total_bono_mes
 WHERE t2.ano >= extract(YEAR from now()) - 2
-ORDER BY t2.id_peluqueria, t2.ano, t2.mes
+ORDER BY t2.id_peluqueria, t2.ano, t2.mes;
 
 
 -- FIN Pregunta 3 --
@@ -189,7 +189,7 @@ ON ds1.id_servicio =
  	)
 AND ds.id_detalle = ds1.id_detalle
 WHERE cl.sexo = 'M'
-order by cl.id_cliente
+order by cl.id_cliente;
 
 -- FIN Pregunta 4 --
 
@@ -220,7 +220,7 @@ JOIN servicio s
 ON s.id_servicio = ds.id_servicio
 WHERE ds.id_servicio = 4
 GROUP BY cl.id_cliente, cl.nombre, co.nombre_comuna, pe.nombre_peluqueria, s.precio_servicio
-ORDER BY cl.id_cliente
+ORDER BY cl.id_cliente;
 
 -- FIN Pregunta 5 --
 
@@ -281,7 +281,7 @@ JOIN (
 ON t1.nombre_peluqueria = t2.nombre_peluqueria
 AND t1.ano = t2.ano
 AND t1.mes = t2.mes
-AND t1.max_num_citas = t2.num_citas
+AND t1.max_num_citas = t2.num_citas;
 
 -- FIN Pregunta 6 --
 
@@ -338,7 +338,7 @@ JOIN (
 ON t2.nombre_peluqueria = t3.nombre_peluqueria
 AND t2.ano = t3.ano
 AND t2.mes = t3.mes
-AND t2.max_duracion_cita = t3.duracion_cita
+AND t2.max_duracion_cita = t3.duracion_cita;
 
 -- FIN Pregunta 7 --
 
@@ -389,7 +389,7 @@ JOIN (
 	ON s.id_servicio = ds.id_servicio
 ) as t3
 ON t2.nombre_peluqueria = t3.nombre_peluqueria
-AND t2.max_precio_servicio = t3.precio_servicio
+AND t2.max_precio_servicio = t3.precio_servicio;
 
 -- FIN Pregunta 8 --
 
@@ -454,7 +454,7 @@ JOIN (
 ) as t2
 ON t1.mes = t2.mes
 AND t1.max_duracion_cita_mes = duracion_cita_mes
-ORDER BY t1.mes
+ORDER BY t1.mes;
 
 -- FIN Pregunta 9 --
 
@@ -480,6 +480,6 @@ RIGHT JOIN comuna co
 ON cl.id_comuna = co.id_comuna
 GROUP BY co.nombre_comuna
 ) as t2
-ON t1.nombre_comuna = t2.nombre_comuna
+ON t1.nombre_comuna = t2.nombre_comuna;
 
 -- FIN Pregunta 10 --
